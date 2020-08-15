@@ -2,11 +2,17 @@ const list_items = document.querySelectorAll('.list-item');
 const lists = document.querySelectorAll('.list');
 
 let draggedItem = null;
+let hoveredList = null;
+
+let answers = {
+    "4": ["2", "3"]
+};
 
 for (const item of list_items) {
 
     item.addEventListener("dragstart", () => {
         draggedItem = item;
+        console.log(draggedItem);
         setTimeout(() => {
             draggedItem.style.display = 'none';
         });
@@ -27,6 +33,7 @@ for (const item of list_items) {
 
         list.addEventListener('dragenter', (e) => {
             e.preventDefault();
+            hoveredList = list;
             list.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
         });
 
@@ -36,8 +43,15 @@ for (const item of list_items) {
         });
 
         list.addEventListener('drop', (e) => {
-            list.append(draggedItem);
+            if (hoveredList != null && draggedItem != null) {
+                console.log(hoveredList.id)
+                console.log(draggedItem.id)
+                if (answers[hoveredList.id].includes(draggedItem.id)) {
+                    list.append(draggedItem);
+                }
+            }
             list.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+            hoveredList = null;
         });
     }
 }
