@@ -46,7 +46,8 @@ for (const item of list_items) {
             if (hoveredList != null && draggedItem != null) {
                 console.log(hoveredList.id)
                 console.log(draggedItem.id)
-                if (answers[hoveredList.id].includes(draggedItem.id)) {
+                if (answers[hoveredList.id] == null
+                    || answers[hoveredList.id].includes(draggedItem.id)) {
                     list.append(draggedItem);
                 }
             }
